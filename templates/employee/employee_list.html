@@ -1,0 +1,36 @@
+{% extends 'employee/base.html' %}
+
+{% block title %}Employees{% endblock %}
+
+{% block content %}
+    <h1>Employees</h1>
+    <a href="{% url 'employee_create' %}" class="btn btn-primary mb-3">Add Employee</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.first_name }}</td>
+                <td>{{ employee.last_name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>
+                    <a href="{% url 'employee_detail' employee.id %}" class="btn btn-info btn-sm">View</a>
+                    <a href="{% url 'employee_update' employee.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'employee_delete' employee.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No employees found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

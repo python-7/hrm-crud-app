@@ -1,0 +1,42 @@
+{% extends 'employee/base.html' %}
+
+{% block title %}Payroll{% endblock %}
+
+{% block content %}
+    <h1>Payroll Records</h1>
+    <a href="{% url 'payroll_create' %}" class="btn btn-primary mb-3">Generate Payroll</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Pay Period Start</th>
+                <th>Pay Period End</th>
+                <th>Payment Date</th>
+                <th>Gross Pay</th>
+                <th>Net Pay</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payroll in payrolls %}
+            <tr>
+                <td>{{ payroll.id }}</td>
+                <td>{{ payroll.employee }}</td>
+                <td>{{ payroll.pay_period_start }}</td>
+                <td>{{ payroll.pay_period_end }}</td>
+                <td>{{ payroll.payment_date }}</td>
+                <td>{{ payroll.gross_pay }}</td>
+                <td>{{ payroll.net_pay }}</td>
+                <td>
+                    <a href="{% url 'payroll_detail' payroll.id %}" class="btn btn-info btn-sm">View</a>
+                    <a href="{% url 'payroll_update' payroll.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'payroll_delete' payroll.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8">No payroll records found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

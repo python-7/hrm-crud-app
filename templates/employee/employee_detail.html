@@ -1,0 +1,58 @@
+{% extends 'employee/base.html' %}
+
+
+{% block title %}{{ employee.first_name }} {{ employee.last_name }}{% endblock %}
+
+{% block content %}
+    <h1>Employee Details</h1>
+    <hr>
+    <br>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ employee.first_name }} {{ employee.last_name }}</h5>
+            <p class="card-text"><strong>Email:</strong> {{ employee.email }}</p>
+            {% if employee.phone_number %}
+                <p class="card-text"><strong>Phone Number:</strong> {{ employee.phone_number }}</p>
+            {% endif %}
+            {% if employee.department %}
+                <p class="card-text"><strong>Department:</strong> {{ employee.department }}</p>
+            {% endif %}
+            {% if employee.job_title %}
+                <p class="card-text"><strong>Job Title:</strong> {{ employee.job_title }}</p>
+            {% endif %}
+            {% if employee.date_of_birth %}
+                <p class="card-text"><strong>Date of Birth:</strong> {{ employee.date_of_birth }}</p>
+            {% endif %}
+            <p class="card-text"><strong>Hire Date:</strong> {{ employee.hire_date }}</p>
+
+            <h6 class="mt-3">Related Information</h6>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{% url 'leave_list' %}?employee={{ employee.id }}">View Leave History</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'absence_list' %}?employee={{ employee.id }}">View Absence History</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'performance_list' %}?employee={{ employee.id }}">View Performance Evaluations</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'reward_list' %}?employee={{ employee.id }}">View Rewards</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'compensation_list' %}?employee={{ employee.id }}">View Compensation History</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'payroll_list' %}?employee={{ employee.id }}">View Payroll History</a>
+                </li>
+            </ul>
+
+            <div class="mt-3">
+                <a href="{% url 'employee_update' employee.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'employee_delete' employee.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'employee_list' %}" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

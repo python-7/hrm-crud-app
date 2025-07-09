@@ -1,0 +1,37 @@
+{% extends 'employee/base.html' %}
+
+{% block title %}Compensation{% endblock %}
+
+{% block content %}
+    <h1>Compensation Records</h1>
+    <a href="{% url 'compensation_create' %}" class="btn btn-primary mb-3">Add Compensation</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Salary</th>
+                <th>Bonus</th>
+                <th>Effective Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for compensation in compensations %}
+            <tr>
+                <td>{{ compensation.id }}</td>
+                <td>{{ compensation.employee }}</td>
+                <td>{{ compensation.salary }}</td>
+                <td>{{ compensation.bonus }}</td>
+                <td>{{ compensation.effective_date }}</td>
+                <td>
+                    <a href="{% url 'compensation_update' compensation.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'compensation_delete' compensation.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No compensation records found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

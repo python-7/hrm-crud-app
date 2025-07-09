@@ -1,0 +1,37 @@
+{% extends 'employee/base.html' %}
+
+{% block title %}Rewards{% endblock %}
+
+{% block content %}
+    <h1>Rewards</h1>
+    <a href="{% url 'reward_create' %}" class="btn btn-primary mb-3">Add Reward</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Name</th>
+                <th>Date Given</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reward in rewards %}
+            <tr>
+                <td>{{ reward.id }}</td>
+                <td>{{ reward.employee }}</td>
+                <td>{{ reward.name }}</td>
+                <td>{{ reward.date_given }}</td>
+                <td>{{ reward.description|truncatechars:50 }}</td>
+                <td>
+                    <a href="{% url 'reward_update' reward.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'reward_delete' reward.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No rewards found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
